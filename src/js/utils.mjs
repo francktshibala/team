@@ -2,67 +2,131 @@
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  try {
+    return JSON.parse(localStorage.getItem(key));
+  } catch (error) {
+    console.error('Error parsing localStorage data:', error);
+    return null;
+  }
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (error) {
+    console.error('Error saving to localStorage:', error);
+  }
 }
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
+  const element = qs(selector);
+  if (element) {
+    element.addEventListener("touchend", (event) => {
+      event.preventDefault();
+      callback();
+    });
+    element.addEventListener("click", callback);
+  }
 }
 
-export function getParam(param){
+// get URL parameter
+export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
-  return product
+  return urlParams.get(param);
 }
 
-
+// render a list with template
 export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
+  if (!parentElement) {
+    console.error('Parent element not found');
+    return;
+  }
+  
   const htmlStrings = list.map(template);
-  // if clear is true we need to clear out the contents of the parent.
+  
   if (clear) {
     parentElement.innerHTML = "";
   }
+  
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
-// render a single template with a list of data
+// render a single template with data
 export function renderWithTemplate(template, parentElement, data, callback) {
+  if (!parentElement) {
+    console.error('Parent element not found');
+    return;
+  }
+  
   parentElement.innerHTML = template;
+  
   if (callback) {
     callback(data);
   }
 }
 
-// this function will load a template from a path and return it as a string
+// load template from path
 export async function loadTemplate(path) {
-  const res = await fetch(path);
-  const template = await res.text();
-  return template;
+  try {
+    const res = await fetch(path);
+    if (!res.ok) {
+      throw new Error(`Failed to load template: ${res.status}`);
+    }
+    const template = await res.text();
+    return template;
+  } catch (error) {
+    console.error('Error loading template:', error);
+    return '<div>Error loading template</div>';
+  }
 }
 
-// this function will take the header and footer partial templates and render them into the html file.
+// load header and footer templates
 export async function loadHeaderFooter() {
-  // load the header and footer templates
-  const headerTemplate = await loadTemplate("../partials/header.html");
-  const footerTemplate = await loadTemplate("../partials/footer.html");
-  // load the header and footer data
-  const headerElement = document.getElementById("main-header");
-  const footerElement = document.getElementById("main-footer");
-  // render the header and footer templates
-  renderWithTemplate(headerTemplate, headerElement);
-  renderWithTemplate(footerTemplate, footerElement);
+  try {
+    // load the header and footer templates
+    const headerTemplate = await loadTemplate("../partials/header.html");
+    const footerTemplate = await loadTemplate("../partials/footer.html");
+    
+    // get the header and footer elements
+    const headerElement = document.getElementById("main-header");
+    const footerElement = document.getElementById("main-footer");
+    
+    // render the templates
+    if (headerElement) {
+      renderWithTemplate(headerTemplate, headerElement);
+    }
+    
+    if (footerElement) {
+      renderWithTemplate(footerTemplate, footerElement);
+    }
+  } catch (error) {
+    console.error('Error loading header/footer:', error);
+  }
+}
+
+// Add to utils.mjs - Cart counter functionality
+export function updateCartCounter() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const totalItems = cartItems.reduce((total, item) => total + (item.Quantity || 1), 0);
+  
+  // Create or update cart counter badge
+  let cartBadge = document.querySelector('.cart-counter');
+  
+  if (totalItems > 0) {
+    if (!cartBadge) {
+      cartBadge = document.createElement('span');
+      cartBadge.className = 'cart-counter';
+      document.querySelector('.cart').appendChild(cartBadge);
+    }
+    cartBadge.textContent = totalItems;
+    cartBadge.style.display = 'block';
+  } else if (cartBadge) {
+    cartBadge.style.display = 'none';
+  }
 }

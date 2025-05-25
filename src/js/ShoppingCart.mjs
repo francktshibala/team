@@ -44,7 +44,7 @@ export default class ShoppingCart {
     }
     
     renderCartContents() {
-        const productList = document.querySelector(".product-list");
+        const productList = document.querySelector(".cart-list");
         
         if (!productList) {
             console.error('Product list element not found');

@@ -46,6 +46,9 @@ export default class ProductDetails {
     
     // Show confirmation message
     this.showAddToCartConfirmation();
+
+    // Dispatch cartUpdated event
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
   }
 
   showAddToCartConfirmation() {

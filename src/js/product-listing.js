@@ -9,6 +9,7 @@ loadHeaderFooter();
 document.addEventListener("headerfooterloaded", () => {
   const cartCount = new CartCount(document.querySelector(".cart"));
   cartCount.render();
+  cartCount.listenForUpdates();
 });
 
 const category = getParam("category");

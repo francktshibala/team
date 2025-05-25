@@ -339,18 +339,15 @@ footer {
   position: relative;
 }
 
-.cart-counter {
+.cart-count {
   position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: #e53935;
-  color: white;
+  top: 5px;
+  left: 10px;
+  background-color: var(--primary-color);
+  color: black;
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: var(--small-font);
   font-weight: bold;
 }

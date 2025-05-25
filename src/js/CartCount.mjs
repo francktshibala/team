@@ -30,7 +30,7 @@ export default class CartCount {
     
     updateCount() {
         const cartItems = getLocalStorage('so-cart') || [];
-        const count = Array.isArray(cartItems) ? cartItems.length : 0;
+        const count = cartItems.reduce((total, item) => total + (item.Quantity || 1), 0);
 
         if (!this.countElement) {
             console.warn('Cart count element not found');

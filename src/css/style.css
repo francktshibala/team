@@ -238,6 +238,19 @@ button {
 }
 
 /* Start cart list card styles */
+
+.cart-list {
+  list-style-type: none;
+  padding: 0;
+  width: 90%;
+  margin: auto;
+}
+
+.cart-list a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
 .cart-card {
   display: grid;
   grid-template-columns: 25% auto 15%;

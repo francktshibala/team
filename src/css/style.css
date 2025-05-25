@@ -241,8 +241,8 @@ button {
 }
 
 .remove-item {
-  cursor:pointer;
-  color:red;
+  cursor: pointer;
+  color: red;
   font-weight: bold;
 }
 
@@ -300,7 +300,6 @@ footer {
   font-weight: bold;
 }
 
-
 .cart {
   position: relative;
 }
@@ -320,4 +319,3 @@ footer {
   justify-content: center;
   font-weight: bold;
 }
-

@@ -37,7 +37,14 @@ export default class ProductDetails {
       cartItems[productIndex].Quantity = (cartItems[productIndex].Quantity || 1) + 1;
     } else {
       // Add new product with quantity 1
-      const productToAdd = { ...this.product, Quantity: 1 };
+        const productToAdd = {
+            Id: this.product.Id,
+            Name: this.product.Name,
+            FinalPrice: this.product.FinalPrice,
+            Colors: this.product.Colors,
+            Quantity: 1,
+            Image: this.product.Images.PrimarySmall || "images/placeholder.jpg", // Fallback image
+      };
       cartItems.push(productToAdd);
     }
 

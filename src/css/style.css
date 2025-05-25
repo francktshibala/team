@@ -151,6 +151,41 @@ button {
   text-align: center;
 }
 
+/* Category grid */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  list-style-type: none;
+  text-align: center;
+}
+
+.category-grid a {
+  text-decoration: none;
+  color: var(--dark-grey);
+  font-size: var(--small-font);
+}
+
+.category-grid li:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s;
+}
+
+.category-grid a:hover {
+  color: var(--tertiary-color);
+  text-decoration: underline;
+  transition:
+    color 0.3s,
+    text-decoration 0.3s;
+}
+
+.category-grid img {
+  width: min(100px, 90%);
+}
+
+/* End category grid */
+
 .products {
   margin-top: 2rem;
   padding: 1rem;

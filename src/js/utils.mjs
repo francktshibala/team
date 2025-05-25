@@ -105,6 +105,10 @@ export async function loadHeaderFooter() {
     if (footerElement) {
       renderWithTemplate(footerTemplate, footerElement);
     }
+    
+    // dispatch custom event
+    const event = new CustomEvent("headerfooterloaded");
+    document.dispatchEvent(event);
   } catch (error) {
     console.error('Error loading header/footer:', error);
   }

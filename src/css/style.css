@@ -151,6 +151,41 @@ button {
   text-align: center;
 }
 
+/* Category grid */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  list-style-type: none;
+  text-align: center;
+}
+
+.category-grid a {
+  text-decoration: none;
+  color: var(--dark-grey);
+  font-size: var(--small-font);
+}
+
+.category-grid li:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s;
+}
+
+.category-grid a:hover {
+  color: var(--tertiary-color);
+  text-decoration: underline;
+  transition:
+    color 0.3s,
+    text-decoration 0.3s;
+}
+
+.category-grid img {
+  width: min(100px, 90%);
+}
+
+/* End category grid */
+
 .products {
   margin-top: 2rem;
   padding: 1rem;
@@ -203,6 +238,19 @@ button {
 }
 
 /* Start cart list card styles */
+
+.cart-list {
+  list-style-type: none;
+  padding: 0;
+  width: 90%;
+  margin: auto;
+}
+
+.cart-list a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
 .cart-card {
   display: grid;
   grid-template-columns: 25% auto 15%;
@@ -241,8 +289,8 @@ button {
 }
 
 .remove-item {
-  cursor:pointer;
-  color:red;
+  cursor: pointer;
+  color: red;
   font-weight: bold;
 }
 
@@ -300,24 +348,19 @@ footer {
   font-weight: bold;
 }
 
-
 .cart {
   position: relative;
 }
 
-.cart-counter {
+.cart-count {
   position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: #e53935;
-  color: white;
+  top: 5px;
+  left: 10px;
+  background-color: var(--primary-color);
+  color: black;
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: var(--small-font);
   font-weight: bold;
 }
-

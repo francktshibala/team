@@ -37,7 +37,14 @@ export default class ProductDetails {
       cartItems[productIndex].Quantity = (cartItems[productIndex].Quantity || 1) + 1;
     } else {
       // Add new product with quantity 1
-      const productToAdd = { ...this.product, Quantity: 1 };
+        const productToAdd = {
+            Id: this.product.Id,
+            Name: this.product.Name,
+            FinalPrice: this.product.FinalPrice,
+            Colors: this.product.Colors,
+            Quantity: 1,
+            Image: this.product.Images.PrimarySmall || "images/placeholder.jpg", // Fallback image
+      };
       cartItems.push(productToAdd);
     }
 
@@ -46,6 +53,9 @@ export default class ProductDetails {
     
     // Show confirmation message
     this.showAddToCartConfirmation();
+
+    // Dispatch cartUpdated event
+    window.dispatchEvent(new CustomEvent('cartUpdated'));
   }
 
   showAddToCartConfirmation() {
@@ -76,7 +86,7 @@ function productDetailsTemplate(product) {
 
   // Set product image
   const productImage = document.getElementById('productImage');
-  productImage.src = product.Image;
+  productImage.src = product.Images.PrimaryLarge;
   productImage.alt = product.NameWithoutBrand;
 
   // Set product color

@@ -44,7 +44,7 @@ export default class ShoppingCart {
     }
     
     renderCartContents() {
-        const productList = document.querySelector(".product-list");
+        const productList = document.querySelector(".cart-list");
         
         if (!productList) {
             console.error('Product list element not found');
@@ -102,12 +102,17 @@ export default class ShoppingCart {
             this.cartItems = [];
             this.renderCartContents();
         }
+        // dispatch cart updated
+        window.dispatchEvent(new CustomEvent('cartUpdated'));
     }
     
     removeProductFromCart(productId) {
         this.cartItems = this.cartItems.filter(item => item.Id !== productId);
         setLocalStorage("so-cart", this.cartItems);
         this.renderCartContents();
+
+        // dispatch cart updated
+        window.dispatchEvent(new CustomEvent('cartUpdated'));
     }
 
     // Method to update quantity of a specific item
@@ -122,6 +127,9 @@ export default class ShoppingCart {
                 this.renderCartContents();
             }
         }
+
+        // dispatch cart updated
+        window.dispatchEvent(new CustomEvent('cartUpdated'));
     }
 
     // Get total number of items in cart

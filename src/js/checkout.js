@@ -9,3 +9,5 @@ document.addEventListener("headerfooterloaded", () => {
   cartCount.render();
   cartCount.listenForUpdates();
 });
+
+

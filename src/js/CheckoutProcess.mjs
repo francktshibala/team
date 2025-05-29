@@ -42,6 +42,7 @@ export default class CheckoutProcess {
     init() {
         this.list = getLocalStorage(this.key) || [];
         this.calculateItemSubtotal();
+        this.calculateOrderTotal();
     }
 
     calculateItemSubtotal() {
@@ -59,7 +60,7 @@ export default class CheckoutProcess {
         summary.innerText = `$${this.itemTotal}`;
     }
 
-    calcuateOrderTotal() {
+    calculateOrderTotal() {
         this.tax = this.itemTotal * 0.06;
         this.shipping = 10 + (this.list.length - 1) * 2;
         this.orderTotal = (
@@ -75,9 +76,9 @@ export default class CheckoutProcess {
         const shipping = document.querySelector(this.outputSelector + "#shipping");
         const orderTotal = document.querySelector(this.outputSelector + "#orderTotal");
 
-        tax.innerText = this.tax.toFixed(2);
-        shipping.innerText = this.shipping.toFixed(2);
-        orderTotal.innerText = this.orderTotal.toFixed(2);
+        tax.innerText = `$${this.tax.toFixed(2)}`;
+        shipping.innerText = `$${this.shipping.toFixed(2)}`;
+        orderTotal.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
 
     async checkout(form) {

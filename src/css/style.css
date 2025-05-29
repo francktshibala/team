@@ -364,3 +364,122 @@ footer {
   font-size: var(--small-font);
   font-weight: bold;
 }
+
+/* Checkout Page Layout */
+.checkout {
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.checkout h2 {
+  text-align: center;
+  font-family: var(--font-body);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--tertiary-color);
+}
+
+/* Form Styling */
+.checkout-form form {
+  background-color: #fff;
+  border: 1px solid var(--light-grey);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 2rem;
+}
+
+legend {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-body);
+  color: var(--secondary-color);
+}
+
+.checkout__name,
+.checkout__address,
+.checkout__payment {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Two-column layout for names and address */
+.checkout__name,
+.checkout__address {
+  grid-template-columns: 1fr 1fr;
+}
+
+.checkout__payment {
+  grid-template-columns: 1fr;
+}
+
+label {
+  font-size: var(--small-font);
+  color: var(--dark-grey);
+}
+
+input {
+  padding: 0.5em;
+  border: 1px solid var(--light-grey);
+  border-radius: 5px;
+  font-size: var(--font-base);
+}
+
+.checkout-summary .order__summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  background-color: #fafafa;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--light-grey);
+  font-size: var(--small-font);
+}
+
+.checkout-summary .order__summary div:last-child {
+  font-weight: bold;
+  color: var(--tertiary-color);
+}
+
+/* Checkout button */
+#checkoutSubmit {
+  margin-top: 1rem;
+}
+
+.checkout-form {
+  background-color: #fff;
+  border: 1px solid var(--light-grey);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.checkout__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.checkout__group .form-group {
+  min-width: 120px;
+}
+
+.form-group {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  flex: 1 1 100%;
+}
+
+/* Ensure long inputs (like street address) stretch full width if needed */
+.form-group input[type="text"] {
+  width: 100%;
+}

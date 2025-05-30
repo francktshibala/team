@@ -159,7 +159,7 @@ export function alertMessage(message, scroll = true) {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #f44336;
+    background-color: var(--tertiary-color);
     color: white;
     padding: 15px 20px;
     border-radius: 5px;

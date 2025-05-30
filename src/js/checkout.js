@@ -21,10 +21,20 @@ window.addEventListener("DOMContentLoaded", () => {
     .querySelector("#zip")
     .addEventListener("blur", order.calculateOrderTotal.bind(order));
 
-  // listening for click on the button
-  document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
+  // listening for submit on the form (not click on button)
+  document.querySelector("form[name='checkout']").addEventListener("submit", (e) => {
     e.preventDefault();
 
+    // Get the form element
+    const form = document.forms["checkout"];
+    
+    // Check form validity
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // If validation passes, proceed with checkout
     order.checkout();
   });
 });

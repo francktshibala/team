@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -51,8 +51,73 @@ export default class ProductDetails {
     // Save updated cart to localStorage
     setLocalStorage("so-cart", cartItems);
     
-    // Show confirmation message
-    this.showAddToCartConfirmation();
+    // Show success alert message
+    const successAlert = document.createElement('div');
+    successAlert.className = 'alert-message success';
+    successAlert.innerHTML = `
+      <div class="alert-content">
+        <span class="alert-text">✅ ${this.product.Name} added to cart successfully!</span>
+        <span class="alert-close">&times;</span>
+      </div>
+    `;
+
+    // Style the success alert
+    successAlert.style.cssText = `
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      max-width: 90%;
+      word-wrap: break-word;
+    `;
+
+    const alertContent = successAlert.querySelector('.alert-content');
+    alertContent.style.cssText = `
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    `;
+
+    const closeButton = successAlert.querySelector('.alert-close');
+    closeButton.style.cssText = `
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      background: none;
+      color: white;
+      padding: 0;
+      margin: 0;
+    `;
+
+    // Insert the alert
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.insertBefore(successAlert, mainElement.firstChild);
+    } else {
+      document.body.insertBefore(successAlert, document.body.firstChild);
+    }
+
+    // Add close functionality
+    closeButton.addEventListener('click', () => {
+      successAlert.remove();
+    });
+
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+      if (successAlert.parentNode) {
+        successAlert.remove();
+      }
+    }, 3000);
 
     // Dispatch cartUpdated event
     window.dispatchEvent(new CustomEvent('cartUpdated'));

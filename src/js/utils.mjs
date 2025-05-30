@@ -134,3 +134,85 @@ export function updateCartCounter() {
     cartBadge.style.display = 'none';
   }
 }
+
+// Alert message function for displaying user notifications
+export function alertMessage(message, scroll = true) {
+  // Remove any existing alerts
+  const existingAlert = document.querySelector('.alert-message');
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+
+  // Create the alert element
+  const alertDiv = document.createElement('div');
+  alertDiv.className = 'alert-message';
+  alertDiv.innerHTML = `
+    <div class="alert-content">
+      <span class="alert-text">${message}</span>
+      <span class="alert-close">&times;</span>
+    </div>
+  `;
+
+  // Add CSS styles
+  alertDiv.style.cssText = `
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--tertiary-color);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    max-width: 90%;
+    word-wrap: break-word;
+  `;
+
+  const alertContent = alertDiv.querySelector('.alert-content');
+  alertContent.style.cssText = `
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  `;
+
+  const closeButton = alertDiv.querySelector('.alert-close');
+  closeButton.style.cssText = `
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    background: none;
+    color: white;
+    padding: 0;
+    margin: 0;
+  `;
+
+  // Insert the alert at the top of the main element
+  const mainElement = document.querySelector('main');
+  if (mainElement) {
+    mainElement.insertBefore(alertDiv, mainElement.firstChild);
+  } else {
+    document.body.insertBefore(alertDiv, document.body.firstChild);
+  }
+
+  // Add close functionality
+  closeButton.addEventListener('click', () => {
+    alertDiv.remove();
+  });
+
+  // Auto-remove after 5 seconds
+  setTimeout(() => {
+    if (alertDiv.parentNode) {
+      alertDiv.remove();
+    }
+  }, 5000);
+
+  // Scroll to top if requested
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}

@@ -1,7 +1,8 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
+
 function packageItems(items) {
     const simplifiedItems = items.map((item) => {
         console.log(item);
@@ -95,8 +96,42 @@ export default class CheckoutProcess {
         try {
             const response = await services.checkout(order);
             console.log(response);
+            
+            // If we get here, the order was successful
+            // Clear the cart
+            setLocalStorage(this.key, []);
+            
+            // Redirect to success page
+            window.location.href = "success.html";
+            
         } catch (error) {
             console.error(error);
+            
+            // Handle different types of errors
+            let errorMessage = "An error occurred during checkout. Please try again.";
+            
+            if (error.name === 'servicesError' && error.message) {
+                // Server returned specific error details
+                if (typeof error.message === 'object') {
+                    // If the error message is an object, extract meaningful information
+                    if (error.message.message) {
+                        errorMessage = error.message.message;
+                    } else if (error.message.error) {
+                        errorMessage = error.message.error;
+                    } else {
+                        // Try to get the first error from the object
+                        const firstError = Object.values(error.message)[0];
+                        if (typeof firstError === 'string') {
+                            errorMessage = firstError;
+                        }
+                    }
+                } else if (typeof error.message === 'string') {
+                    errorMessage = error.message;
+                }
+            }
+            
+            // Display the error message to the user
+            alertMessage(errorMessage);
         }
     }
 }

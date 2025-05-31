@@ -516,6 +516,7 @@ input {
 
 .carousel-btn.prev {
   left: 0;
+  z-index: 20;
 }
 
 .carousel-btn.next {

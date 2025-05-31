@@ -141,28 +141,97 @@ export default class ProductDetails {
     
     // Render product details
     productDetailsTemplate(this.product);
+
+    console.log(this.product.Images.ExtraImages)
   }
 }
 
 function productDetailsTemplate(product) {
-  // Set brand name and product name
-  document.querySelector('h2').textContent = product.Brand.Name;
-  document.querySelector('h3').textContent = product.NameWithoutBrand;
+  document.querySelector("h2").textContent = product.Brand.Name;
+  document.querySelector("h3").textContent = product.NameWithoutBrand;
 
-  // Set product image
-  const productImage = document.getElementById('productImage');
-  productImage.src = product.Images.PrimaryLarge;
-  productImage.alt = product.NameWithoutBrand;
+  const imageContainer = document.getElementById("carouselImages");
 
-  // Set product color
-  document.getElementById('productColor').textContent = product.Colors[0].ColorName;
-  
-  // Set product description
-  document.getElementById('productDesc').innerHTML = product.DescriptionHtmlSimple;
+  // Always start with the PrimaryLarge image
+  const images = [product.Images.PrimaryLarge];
 
-  // Set product ID on Add to Cart button
-  document.getElementById('addToCart').dataset.id = product.Id;
+  // Check for ExtraImages array and extract image URLs
+  if (Array.isArray(product.Images?.ExtraImages)) {
+    const extraImageURLs = product.Images.ExtraImages.map(imgObj => {
+      console.log("Checking ExtraImage object:", imgObj);
+      return (
+        imgObj?.Large ||
+        imgObj?.Medium ||
+        imgObj?.Small ||
+        imgObj?.Url ||
+        imgObj?.Src ||
+        Object.values(imgObj)[0] // fallback to first value if key is unknown
+      );
+    }).filter(Boolean);
 
-  // Simple price display without discount badges
-  document.getElementById('productPrice').textContent = `$${product.FinalPrice}`;
+    console.log("Extracted extra image URLs:", extraImageURLs);
+    images.push(...extraImageURLs);
+  }
+
+  // Render image elements
+  imageContainer.innerHTML = images
+    .map(
+      (img, index) =>
+        `<img src="${img}" alt="${product.NameWithoutBrand} image ${index + 1}" />`
+    )
+    .join("");
+
+  // Enable carousel controls only if there's more than 1 image
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+  const nextBtn = document.querySelector(".carousel-btn.next");
+
+  if (images.length > 1) {
+    setTimeout(setupCarousel, 100);
+    prevBtn.style.display = "flex";
+    nextBtn.style.display = "flex";
+  } else {
+    prevBtn.style.display = "none";
+    nextBtn.style.display = "none";
+  }
+
+  ;
+
+  document.getElementById("productColor").textContent =
+    product.Colors[0]?.ColorName || "N/A";
+
+  document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
+  document.getElementById("addToCart").dataset.id = product.Id;
+  document.getElementById("productPrice").textContent = `$${product.FinalPrice}`;
+}
+
+function setupCarousel() {
+  const images = document.querySelectorAll("#carouselImages img");
+  console.log("Images in carousel:", images.length);
+
+  const imageContainer = document.getElementById("carouselImages");
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+  const nextBtn = document.querySelector(".carousel-btn.next");
+
+  if (images.length <= 1) {
+    console.log("Not enough images for carousel.");
+    return;
+  }
+
+  let index = 0;
+
+  function updateCarousel() {
+    imageContainer.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    index = (index - 1 + images.length) % images.length;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    index = (index + 1) % images.length;
+    updateCarousel();
+  });
+
+  updateCarousel(); // Ensure it's in the right position at start
 }

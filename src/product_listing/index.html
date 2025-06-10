@@ -1,44 +1,47 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Home</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/product-listing.js" type="module"></script>
-  </head>
 
-  <body>
-    <!-- This header will be replaced with our template -->
-    <header class="divider" id="main-header">
-      <!-- Header content will be loaded dynamically -->
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Outside | Home</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/js/product-listing.js" type="module"></script>
+</head>
 
-    <main class="divider">
-      <div class="hero">
-        <img
-          src="/images/banner-sm.jpg"
-          srcset="/images/banner-sm.jpg 500w, /images/banner.jpg"
-          alt="image of a high mountain lake"
-        />
-        <div class="logo logo--square">
-          <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-          <div>Sleep<span class="highlight">Outside</span></div>
-        </div>
+<body>
+  <!-- This header will be replaced with our template -->
+  <header class="divider" id="main-header">
+    <!-- Header content will be loaded dynamically -->
+  </header>
+
+  <main class="divider">
+    <div class="hero">
+      <img src="/images/banner-sm.jpg" srcset="/images/banner-sm.jpg 500w, /images/banner.jpg"
+        alt="image of a high mountain lake" />
+      <div class="logo logo--square">
+        <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
+        <div>Sleep<span class="highlight">Outside</span></div>
       </div>
+    </div>
 
-      <section class="products">
-        <h2>Top Products</h2>
-        <div id="sortContainer"></div>
-        <ul class="product-list">
-          <!-- Product list will be filled in by JavaScript -->
-        </ul>
-      </section>
-    </main>
+    <section class="products">
+      <h2>Top Products</h2>
 
-    <!-- This footer will be replaced with our template -->
-    <footer id="main-footer">
-      <!-- Footer content will be loaded dynamically -->
-    </footer>
-  </body>
+      <!-- 🔍 Product Search Input -->
+      <input type="text" id="searchInput" placeholder="Search products..." class="product-search" />
+
+      <div id="sortContainer"></div>
+      <ul class="product-list">
+        <!-- Product list will be filled in by JavaScript -->
+      </ul>
+    </section>
+  </main>
+
+  <!-- This footer will be replaced with our template -->
+  <footer id="main-footer">
+    <!-- Footer content will be loaded dynamically -->
+  </footer>
+</body>
+
 </html>

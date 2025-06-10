@@ -50,6 +50,25 @@ export default class ProductDetails {
 
     // Save updated cart to localStorage
     setLocalStorage("so-cart", cartItems);
+
+
+
+    // Bounce the cart icon
+const cart = document.querySelector('.cart');
+
+function triggerCartBounce() {
+  if (!cart) return;  // safety check
+
+  cart.classList.add('bounce');
+
+  cart.addEventListener('animationend', () => {
+    cart.classList.remove('bounce');
+  }, { once: true });
+}
+
+    triggerCartBounce(); // Trigger bounce after adding to cart
+    
+    
     
     // Show success alert message
     const successAlert = document.createElement('div');

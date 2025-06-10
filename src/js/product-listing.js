@@ -59,3 +59,30 @@ sortSelect.addEventListener("change", () => {
   const sorted = sortProducts(productList.products, sortSelect.value);
   productList.renderList(sorted);
 });
+
+
+
+
+
+
+
+
+
+
+document.addEventListener("productsLoaded", () => {
+  const searchInput = document.getElementById("searchInput");
+
+  if (!searchInput) return;
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().trim();
+
+    
+    const filtered = productList.products.filter((product) =>
+      product.name.toLowerCase().includes(query)
+    );
+
+    
+    productList.renderList(filtered);
+  });
+});

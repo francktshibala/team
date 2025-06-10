@@ -25,6 +25,11 @@ export default class ProductList {
   async init() {
     this.products = await this.dataSource.getData(this.category);
     this.renderList(this.products);
+
+    
+
+    
+    document.dispatchEvent(new CustomEvent("productsLoaded"));
   }
 
   renderList(list) {

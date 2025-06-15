@@ -1,31 +1,12 @@
-# BYU-Pathway Worldwide Online
-## WDD 330 - Web Frontend Development II
+# React + Vite
 
-## 🚀 Production Site
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+Currently, two official plugins are available:
 
-### ⛺ SleepOutside Starter Code
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
- - This repository is the start of the SleepOutside web application project for WDD 330. The repository contains branches which are checkpoints for the team and individual assignments throughout the course.
+## Expanding the ESLint configuration
 
- - https://byui-cse.github.io/wdd330-ww-course/week01/team.html
-
-### Prerequisites
-
-- You must have Node installed to run the following commands.
-[WDD 330 Setup Environment](https://byui-cse.github.io/wdd330-ww-course/intro/) 
-
-### Common Workflow Commands
-
-- `npm run lint` to run ESLint against your code to find errors.
-- `npm run format` to run Prettier to automatically format your code.
-- `npm run start` starts up a local server and updates on any JS or CSS/SCSS 
-- `npm run build` to build final files when you are ready to turn in.
-
-
----
-_BYU-Pathway Worldwide improves lives through access to spiritually based, online affordable higher education. Its mission is to develop disciples of Jesus Christ who are leaders in their homes, the Church, and their communities._
-
-
-Netlify URL:
-https://teal-paprenjak-b4e9da.netlify.app/
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
